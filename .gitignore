@@ -1,0 +1,21 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# local demo data (copied from demo-vault/ by `bun run demo`)
+.demo-data/
+
+# logs
+*.log
+
+# environment
+.env
+.env.*
+!.env.example
+
+# editors / OS
+.DS_Store
+.idea/

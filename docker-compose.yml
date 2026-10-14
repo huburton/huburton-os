@@ -1,0 +1,34 @@
+# Demo stack: `docker compose up --build`, then open http://localhost:8088
+# The API copies ./demo-vault (read-only) into a named volume on first start, with dates shifted around today.
+# For a real vault, replace the `vault` volume with a bind mount of your vault and drop DEMO_VAULT_TEMPLATE.
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    depends_on:
+      - plateforme-api
+
+  plateforme-api:            # name used by nginx.conf (proxy_pass http://plateforme-api:4000)
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      PORT: "4000"
+      VAULT_ROOT: /vault
+      DEMO_VAULT_TEMPLATE: /demo-vault
+      OFFLINE: ${OFFLINE:-1}
+      TZ: ${TZ:-Europe/Brussels}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8088}
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./demo-vault:/demo-vault:ro
+      - vault:/vault
+      # Optional, for the STACK page container list:
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  vault:

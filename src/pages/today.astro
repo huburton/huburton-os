@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import MorningBriefLive from '../components/islands/MorningBriefLive.tsx';
+import CaptureInput from '../components/islands/CaptureInput.tsx';
+import TodayBoard from '../components/islands/TodayBoard.tsx';
+---
+<Base title="Today" current="TODAY">
+  <div class="grid grid-cols-1 md:grid-cols-[300px_1fr] h-full overflow-y-auto md:overflow-hidden">
+    <div class="order-2 md:order-none min-h-0 md:h-full flex flex-col"><MorningBriefLive client:load /></div>
+    <div class="flex flex-col min-h-0">
+      <CaptureInput client:load />
+      <TodayBoard client:load />
+    </div>
+  </div>
+</Base>

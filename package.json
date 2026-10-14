@@ -1,0 +1,42 @@
+{
+  "name": "huburton-os",
+  "type": "module",
+  "version": "0.8.0",
+  "private": true,
+  "workspaces": ["backend"],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "demo": "bun scripts/demo.ts",
+    "dev": "astro dev",
+    "dev:api": "cd backend && bun --watch src/index.ts",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "cd backend && bun test",
+    "typecheck:api": "cd backend && tsc --noEmit -p .",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@fontsource-variable/bodoni-moda": "^5.2.7",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.1",
+    "astro": "^6.4.7",
+    "lucide-react": "^1.18.0",
+    "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/react": "^5.0.7",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,61 @@
+---
+import ThemeToggle from './islands/ThemeToggle.tsx';
+const { current } = Astro.props as { current?: string };
+const isHub = current === 'HUB';
+const links = [
+  { href: '/today', label: 'TODAY', k: 't' },
+  { href: '/planning', label: 'PLANNING', k: 'a' },
+  { href: '/projects', label: 'PROJECTS', k: 'p' },
+  { href: '/media', label: 'MEDIA', k: 'm' },
+  { href: '/ideas', label: 'IDÉES', k: 'i' },
+  { href: '/ia', label: 'IA', k: 'l' },
+  { href: '/system', label: 'STACK', k: 's' },
+  { href: '/brief', label: 'BRIEF', k: 'b' },
+];
+---
+{isHub ? (
+  <nav class="site-nav sticky top-0 z-50 glass-soft brutal-border-bottom">
+    <div class="max-w-[1600px] mx-auto px-4 md:px-6 h-[var(--top-h)] flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-2 group shrink-0">
+        <span class="font-display text-[24px] leading-none">huburton</span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-fg-muted)] pt-1">/ os</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-1 min-w-0 overflow-x-auto">
+        <li><span class="block px-2 py-1 font-mono text-[11px] uppercase tracking-[0.15em] bg-[var(--color-fg)] text-[var(--color-bg)] cursor-default">HUB</span></li>
+        {links.map(l => (
+          <li>
+            <a href={l.href} class="block px-2 py-1 font-mono text-[11px] uppercase tracking-[0.15em] hover-paper">{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <div class="flex items-center gap-3">
+        <ThemeToggle client:load />
+        <div class="hidden md:flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-fg-muted)]">
+          <span class="inline-block w-2 h-2 bg-[var(--color-acc-green)]"></span>
+          ONLINE · v0.8
+        </div>
+      </div>
+    </div>
+  </nav>
+) : (
+  <nav class="site-nav sticky top-0 z-50 glass-soft brutal-border-bottom">
+    <div class="max-w-[1600px] mx-auto px-4 h-[var(--top-h)] flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-2 hover-paper px-2 py-[2px] -ml-2 group shrink-0">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-fg-muted)] group-hover:text-[var(--color-fg)]">← HUB</span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-fg-faint)]">·</span>
+        <span class="font-mono text-[11px] uppercase tracking-[0.18em] font-bold">{current}</span>
+      </a>
+      <ul class="hidden md:flex flex-1 min-w-0 items-center justify-center gap-[2px] overflow-x-auto">
+        {links.map(l => (
+          <li class="shrink-0">
+            <a href={l.href} title={`g ${l.k}`} aria-current={l.label === current ? 'page' : undefined}
+              class={`block px-2 py-[3px] font-mono text-[10px] uppercase tracking-[0.15em] ${l.label === current ? 'bg-[var(--color-fg)] text-[var(--color-bg)]' : 'text-[var(--color-fg-muted)] hover-paper'}`}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <div class="flex items-center gap-3 shrink-0">
+        <ThemeToggle client:load />
+      </div>
+    </div>
+  </nav>
+)}

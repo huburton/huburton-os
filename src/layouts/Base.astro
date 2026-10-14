@@ -1,0 +1,63 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import TopNav from '../components/TopNav.astro';
+import GlobalShortcuts from '../components/islands/GlobalShortcuts.tsx';
+import AskBar from '../components/islands/AskBar.tsx';
+import MobileNav from '../components/islands/MobileNav.tsx';
+
+interface Props { title: string; current?: string; }
+const { title, current } = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#F2EDE3" />
+    <title>{title} · huburton/os</title>
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <ClientRouter fallback="animate" />
+    <script is:inline>
+      (function () {
+        try {
+          // thème : auto (système) | light | dark | oled
+          var c = localStorage.getItem('theme');
+          if (c !== 'light' && c !== 'dark' && c !== 'oled' && c !== 'auto') c = 'auto';
+          var t = c === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : c;
+          document.documentElement.setAttribute('data-theme', t);
+          var meta = document.querySelector('meta[name=theme-color]');
+          if (meta) meta.setAttribute('content', t === 'oled' ? '#000000' : t === 'dark' ? '#0E0E0C' : '#F2EDE3');
+          // navigation Astro (ClientRouter) : la page entrante remplace les attributs de <html> ; on y recopie le
+          // thème AVANT l'échange (sinon retour au clair / flash en sombre et OLED)
+          if (!window.__themeSwapHook) {
+            window.__themeSwapHook = true;
+            document.addEventListener('astro:before-swap', function (e) {
+              var cur = document.documentElement, next = e.newDocument.documentElement;
+              ['data-theme'].forEach(function (a) { var v = cur.getAttribute(a); if (v) next.setAttribute(a, v); });
+              var m = e.newDocument.querySelector('meta[name=theme-color]'), cm = document.querySelector('meta[name=theme-color]');
+              if (m && cm) m.setAttribute('content', cm.getAttribute('content'));
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body data-page={current?.toLowerCase()}>
+    <TopNav current={current} />
+    <main class="app-main">
+      <slot />
+    </main>
+    <GlobalShortcuts client:load />
+    <AskBar client:load />
+    <MobileNav client:load transition:persist="mobile-nav" />
+  <script is:inline>if ("serviceWorker" in navigator && isSecureContext) { window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(()=>{})); }</script>
+  </body>
+</html>

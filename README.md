@@ -1,21 +1,60 @@
 # huburton/os
 
-A personal dashboard whose database is an Obsidian vault: tasks, calendar, projects, media and ideas are plain
-Markdown notes with YAML frontmatter, a small Bun + Hono API reads and writes them, and an Astro front shows them.
+The web platform I run every day on my home server and my phone. Most of the time I use it through
+**Jarvis**, a chat with my AI agents: I ask for something, a Claude Code hub does it or hands it to a worker
+session, and I follow those sessions live in **Tâches**. Around it: my planning (two-way Google Calendar sync),
+my media library, projects, a morning brief and the state of my machines.
 
-![Today page: morning brief, task capture and small / medium / big columns](docs/screenshots/today.png)
+> Jarvis here is the chat in this platform. It is not [jarvis](https://github.com/huburton/jarvis), my voice
+> assistant, which is a separate project.
 
-## Why it exists
+## The version I run daily
 
-I already keep my notes, projects and reading lists in Obsidian. Every "productivity app" I tried meant a second
-copy of the same data in someone else's database, out of sync within a week. So the idea here is the opposite:
-**the vault is the database**. The dashboard never owns the data; it is a view and an editor on top of files I can
-still open, grep, version and edit by hand in Obsidian. If the dashboard disappears tomorrow, nothing is lost.
+Screenshots of my running instance, filled with demo data: invented sessions, events and media, simulated
+replies (hence the *MAQUETTE* label). The UI is in French, the language I use every day.
 
-It runs on my home server and on my phone (installable PWA). This repository is a cleaned-up copy of that
-project with a fictional demo vault, so it can be run without any of my machines, keys or data.
+**Jarvis: a conversation with my agents.** Replies can carry tables, checklists, charts, collapsible details,
+document cards and questions with answer buttons; the side panel shows quotas, machines and running tasks.
 
-## Features
+![Jarvis chat: a table of running tasks and a checklist](docs/screenshots/jarvis-haut.webp)
+
+![Jarvis chat: a report with a document card, and a question with answer buttons](docs/screenshots/jarvis.webp)
+
+**Tâches: every Claude Code session, on the server and on my PC.** Questions waiting for me come first,
+grouped by project; each session shows its state and its last message.
+
+![Tâches page: a question waiting for an answer, then the sessions of each machine](docs/screenshots/taches.webp)
+
+**Inside a session.** Opening a session shows its conversation as it happens: the brief, each tool call on
+one line (expandable), the messages exchanged with the hub, and a box to answer it through Jarvis.
+
+![A worker session: tool calls, a test failure, the fix, the report sent to the hub](docs/screenshots/session.webp)
+
+**Planning**, week and month views, synced both ways with Google Calendar.
+
+![Planning, week view](docs/screenshots/planning-semaine.webp)
+
+![Planning, month view](docs/screenshots/planning-mois.webp)
+
+**Media**: films, series, books and games I follow, with what is in progress, to watch and recently finished.
+
+![Media library](docs/screenshots/media.webp)
+
+**On the phone** (installable PWA): Jarvis, Tâches and Planning.
+
+![Jarvis, Tâches and Planning on a phone](docs/screenshots/mobile.webp)
+
+## In this repository
+
+This repository is the open part of the platform, cleaned up so it runs without any of my machines, keys or
+data: the API, the planning, media, projects, ideas, local AI and brief pages, and a demo with a fictional data
+set. **Jarvis and Tâches are not included**: they depend on private services (the Claude Code hub and its
+notification channel, the worker sessions). The hub side is described in
+[claude-qg](https://github.com/huburton/claude-qg).
+
+![Today page of this repository's demo](docs/screenshots/today.png)
+
+### Pages in this repository
 
 | Page | What it does | External service |
 | --- | --- | --- |
@@ -34,6 +73,9 @@ Also: PWA with an offline fallback page, light / dark / OLED themes, keyboard na
 a mobile bottom bar. The UI copy is in French (it is my daily tool); code and docs are in English or French.
 
 ## Architecture
+
+Records are stored as Markdown notes with YAML frontmatter (one file per task, event, project or media),
+so the data stays readable and editable outside the app; a Bun + Hono API reads and writes them.
 
 ```mermaid
 flowchart LR
@@ -189,14 +231,12 @@ docs/               screenshots, DESIGN.md (visual identity notes)
 Dockerfile, backend/Dockerfile, nginx.conf, docker-compose.yml
 ```
 
-## Screenshots
+## Screenshots of this repository's demo
 
 | | |
 | --- | --- |
 | ![Hub](docs/screenshots/hub.png) | ![Planning](docs/screenshots/planning.png) |
 | ![Projects](docs/screenshots/projects.png) | ![Ideas](docs/screenshots/ideas.png) |
-
-All screenshots use the demo vault.
 
 ## Status / limits
 
@@ -205,7 +245,7 @@ All screenshots use the demo vault.
 - The vault walk is linear; fine for hundreds of notes, not designed for tens of thousands.
 - Concurrent edits of the same note from Obsidian and the dashboard are last-write-wins.
 - Some features of my running instance are not included here because they depend on private services:
-  a voice/chat assistant, a job-offer scout, finance and health pages.
+  the Jarvis chat and the Tâches page (see above), a job-offer scout, finance and health pages.
 - The UI text is French; the vault folder names are partly French.
 - Built with AI coding assistants (Claude Code), the same way I would use documentation and Stack Overflow:
   I designed the data model and the architecture, reviewed the code, and can explain every choice in it.

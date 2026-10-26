@@ -9,7 +9,7 @@ mon planning (synchronisé dans les deux sens avec Google Agenda), ma médiathè
 matin et l'état de mes machines.
 
 > Le Jarvis dont il est question ici est la discussion de cette plateforme. Ce n'est pas
-> [jarvis](https://github.com/huburton/jarvis), mon assistant vocal, qui est un projet à part.
+> [jarvis](https://git.huburton.com/huburton/jarvis), mon assistant vocal, qui est un projet à part.
 
 ## La version que j'utilise au quotidien
 
@@ -56,7 +56,7 @@ Ce dépôt est la partie ouverte de la plateforme, nettoyée pour tourner sans a
 clés ni de mes données : l'API, les pages planning, médias, projets, idées, IA locale et brief, et une démo
 avec un jeu de données fictif. **Jarvis et Tâches n'y sont pas** : ils dépendent de services privés (le hub
 Claude Code et son canal de notification, les sessions ouvrières). Le côté hub est décrit dans
-[claude-qg](https://github.com/huburton/claude-qg).
+[claude-qg](https://git.huburton.com/huburton/claude-qg).
 
 ![Page Today de la démo de ce dépôt](docs/screenshots/today.png)
 

@@ -7,7 +7,7 @@ The web platform I run every day on my home server and my phone. Most of the tim
 session, and I follow those sessions live in **Tâches**. Around it: my planning (two-way Google Calendar sync),
 my media library, projects, a morning brief and the state of my machines.
 
-> Jarvis here is the chat in this platform. It is not [jarvis](https://github.com/huburton/jarvis), my voice
+> Jarvis here is the chat in this platform. It is not [jarvis](https://git.huburton.com/huburton/jarvis), my voice
 > assistant, which is a separate project.
 
 ## The version I run daily
@@ -52,7 +52,7 @@ This repository is the open part of the platform, cleaned up so it runs without 
 data: the API, the planning, media, projects, ideas, local AI and brief pages, and a demo with a fictional data
 set. **Jarvis and Tâches are not included**: they depend on private services (the Claude Code hub and its
 notification channel, the worker sessions). The hub side is described in
-[claude-qg](https://github.com/huburton/claude-qg).
+[claude-qg](https://git.huburton.com/huburton/claude-qg).
 
 ![Today page of this repository's demo](docs/screenshots/today.png)
 

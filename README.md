@@ -1,5 +1,7 @@
 # huburton/os
 
+*[Version française](README.fr.md)*
+
 The web platform I run every day on my home server and my phone. Most of the time I use it through
 **Jarvis**, a chat with my AI agents: I ask for something, a Claude Code hub does it or hands it to a worker
 session, and I follow those sessions live in **Tâches**. Around it: my planning (two-way Google Calendar sync),
